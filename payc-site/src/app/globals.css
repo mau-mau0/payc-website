@@ -1,0 +1,58 @@
+@import "tailwindcss";
+
+/* Base color variables (light by default) */
+:root {
+  color-scheme: light dark; /* hint both supported */
+  --background: #ffffff;
+  --foreground: #171717;
+}
+
+/* Dark mode is controlled by the .dark class on <html> */
+.dark {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  color-scheme: dark;
+}
+
+/* Optional v4 theme bridge to use variables in utilities */
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+}
+
+/* Apply the variables */
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* --- Accessibility hooks controlled by data-* attributes on <html> --- */
+
+/* Font scaling: adjusts the root font-size so rem-based text scales */
+html[data-font-scale='base'] { font-size: 100%; }
+html[data-font-scale='lg']   { font-size: 112.5%; } /* ~18px base */
+html[data-font-scale='xl']   { font-size: 125%; }   /* ~20px base */
+
+/* Text spacing for readability */
+html[data-text-spacing='loose'] body {
+  letter-spacing: 0.03em;
+  word-spacing: 0.06em;
+}
+html[data-text-spacing='loose'] p,
+html[data-text-spacing='loose'] li {
+  line-height: 1.8;
+}
+
+/* Hide images (keeps layout; just hides <img>/<picture>) */
+html[data-hide-images='true'] img,
+html[data-hide-images='true'] picture {
+  display: none !important;
+}
+
+/* Reduce motion */
+html[data-reduce-motion='true'] * {
+  animation: none !important;
+  transition: none !important;
+  scroll-behavior: auto !important;
+}
