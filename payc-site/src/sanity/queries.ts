@@ -5,6 +5,7 @@ export const allEpisodesQuery = groq`
     _id,
     title,
     'slug': slug.current,
+    episodeNumber,
     date,
     guest,
     summary,

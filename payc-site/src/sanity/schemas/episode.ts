@@ -7,6 +7,7 @@ export default defineType({
   fields: [
     defineField({ name: 'title', type: 'string', validation: r => r.required() }),
     defineField({ name: 'slug', type: 'slug', options: { source: 'title' }, validation: r => r.required() }),
+    defineField({ name: 'episodeNumber', type: 'string', title: 'Episode # (e.g. 712)' }),
     defineField({ name: 'date', type: 'datetime', initialValue: () => new Date().toISOString() }),
     defineField({
         name: 'coverImage',
