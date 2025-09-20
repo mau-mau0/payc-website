@@ -23,5 +23,13 @@ export default defineType({
     defineField({ name: 'guest', type: 'string' }),
     defineField({ name: 'spotifyEmbedUrl', type: 'url', title: 'Spotify Embed URL' }),
     defineField({ name: 'youtubeUrl', type: 'url', title: 'YouTube URL' }),
+    defineField({
+        name: 'categories',
+        title: 'Categories',
+        type: 'array',
+        options: { layout: 'tags' },
+        of: [{ type: 'reference', to: [{ type: 'podcastCategory' }] }],
+        validation: r => r.unique(),
+      })
   ],
 })
