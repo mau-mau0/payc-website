@@ -1,5 +1,5 @@
 import { defineConfig } from 'sanity'
-import { deskTool } from 'sanity/desk'
+import { structureTool } from 'sanity/structure'
 import { visionTool } from '@sanity/vision'
 import { apiVersion, dataset, projectId } from './env'
 import { schema } from './schema'
@@ -13,35 +13,46 @@ export default defineConfig({
   basePath: '/studio',
   schema,
   plugins: [
-    deskTool({
+    structureTool({
       structure: (S) =>
         S.list()
           .title('Content')
           .items([
-            // Singleton: link directly to the one About Page doc with fixed ID
+            // Singletons at the top
             S.listItem()
               .title('About Page')
               .child(
                 S.editor()
                   .id('aboutPage')
                   .schemaType('aboutPage')
-                  .documentId('aboutPage') // fixed ID enforces singleton pattern
+                  .documentId('aboutPage')
+              ),
+            S.listItem()
+              .title('Site Settings')
+              .child(
+                S.editor()
+                  .id('siteSettings')
+                  .schemaType('siteSettings')
+                  .documentId('siteSettings')
               ),
 
-            // All other document types except aboutPage
-            ...S.documentTypeListItems().filter((item) => item.getId() !== 'aboutPage'),
+            // Everything else EXCEPT the singletons
+            ...S.documentTypeListItems().filter(
+              (item) => !['aboutPage', 'siteSettings'].includes(item.getId() as string)
+            ),
           ]),
+
     }),
     visionTool(),
   ],
 
-  // Optional: restrict actions on the singleton (no duplicate/delete)
+  // Restrict actions on singletons (no delete/duplicate)
   document: {
-    // @ts-ignore -- this API exists in Sanity v3
+    // @ts-ignore – Sanity v3 API
     actions: (prev, { schemaType }) => {
-      if (schemaType === 'aboutPage') {
+      if (schemaType === 'aboutPage' || schemaType === 'siteSettings') {
         return prev.filter(
-          (action) => action.action !== 'delete' && action.action !== 'duplicate'
+          (a) => a.action !== 'delete' && a.action !== 'duplicate'
         )
       }
       return prev

@@ -36,3 +36,15 @@ export const aboutPageQuery = groq`
   metrics[]{ value, label }
 }
 `
+
+// Site Settings
+export const siteSettingsQuery = groq`
+*[_type == "siteSettings" && _id == "siteSettings"][0]{
+  newsletter{ heading, subtext, ctaLabel, enabled },
+  socials[]{ network, url, label },
+  footerLinks[]{ label, href },
+  legalLinks[]{ label, href },
+  footerBlurb,
+  copyrightName
+}
+`
