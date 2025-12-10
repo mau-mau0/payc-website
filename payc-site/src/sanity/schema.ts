@@ -3,7 +3,9 @@ import podcastCategory from './schemas/podcastCategory'
 import episode from './schemas/episode'
 import aboutPage from './schemas/aboutPage'
 import siteSettings from './schemas/siteSettings'
+import resourceCategory from './schemas/resourceCategory'
+import resource from './schemas/resource'
 
 export const schema: { types: SchemaTypeDefinition[] } = {
-  types: [episode, podcastCategory, aboutPage, siteSettings],
+  types: [episode, podcastCategory, aboutPage, siteSettings, resourceCategory, resource],
 }
