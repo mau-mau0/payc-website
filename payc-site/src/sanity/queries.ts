@@ -49,20 +49,16 @@ export const siteSettingsQuery = groq`
 }
 `
 
-export const allResourceCategoriesQuery = groq`
-*[_type == "resourceCategory"] | order(title asc) {
-  _id, title, "slug": slug.current, description
-}
-`
-
-// Resources (join category + tags)
 export const allResourcesQuery = groq`
 *[_type == "resource"] | order(featured desc, title asc) {
-  _id, title, "slug": slug.current, type, url, summary, tags,
+  _id,
+  title,
+  kind,
+  url,
+  summary,
+  tags,
   featured,
-  coverImage,
-  "category": category->{
-    _id, title, "slug": slug.current
-  }
+  recommendedBy,
+  recommendedRole
 }
 `
