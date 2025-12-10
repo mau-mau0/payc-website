@@ -8,11 +8,9 @@ import { NAV_LINKS } from '@/lib/nav'
 function NavLink({
   href,
   children,
-  align = 'left',
 }: {
   href: string
   children: React.ReactNode
-  align?: 'left' | 'right'
 }) {
   const pathname = usePathname()
   const active = pathname === href
@@ -69,7 +67,7 @@ export default function Header() {
         {/* right group */}
         <nav aria-label="Utility" className="flex items-center justify-end gap-6">
           {right.map(link => (
-            <NavLink key={link.href} href={link.href} align="right">
+            <NavLink key={link.href} href={link.href}>
               {link.label}
             </NavLink>
           ))}

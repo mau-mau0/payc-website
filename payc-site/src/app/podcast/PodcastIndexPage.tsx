@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from 'react'
 import Link from 'next/link'
-import { urlFor } from '@/sanity/image'
+import { urlFor, type SanityImageSource } from '@/sanity/image'
 import { FaSearch, FaHeadphones, FaPlay, FaSpotify, FaApple, FaAmazon, FaYoutube } from 'react-icons/fa'
 
 type Category = { _id: string; title: string; slug: string }
@@ -15,7 +15,7 @@ type Ep = {
   summary?: string
   spotifyEmbedUrl?: string
   youtubeUrl?: string
-  coverImage?: any
+  coverImage?: SanityImageSource
   episodeNumber?: string
   categories?: Category[]
 }

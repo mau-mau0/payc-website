@@ -48,7 +48,6 @@ export default defineConfig({
 
   // Restrict actions on singletons (no delete/duplicate)
   document: {
-    // @ts-ignore – Sanity v3 API
     actions: (prev, { schemaType }) => {
       if (schemaType === 'aboutPage' || schemaType === 'siteSettings') {
         return prev.filter(

@@ -4,6 +4,17 @@ import { siteSettingsQuery } from '@/sanity/queries'
 import { NAV_LINKS } from '@/lib/nav'
 import { FaXTwitter, FaInstagram, FaFacebookF, FaLinkedinIn, FaYoutube, FaPinterestP, FaTiktok } from 'react-icons/fa6'
 
+type SocialLink = {
+  network: string
+  url: string
+  label?: string
+}
+
+type LegalLink = {
+  label: string
+  href: string
+}
+
 const iconFor = (network: string) => {
   switch (network.toLowerCase()) {
     case 'x': return <FaXTwitter aria-hidden />
@@ -103,7 +114,7 @@ export default async function Footer() {
               <div className="mt-6">
                 <p className="text-xs font-semibold uppercase tracking-wide opacity-80">Follow PAYC:</p>
                 <div className="mt-3 flex flex-wrap gap-4 text-lg">
-                  {socials.map((s: any, i: number) => (
+                  {socials.map((s: SocialLink, i: number) => (
                     <a
                       key={`${s.network}-${i}`}
                       href={s.url}
@@ -127,7 +138,7 @@ export default async function Footer() {
           <div className="flex flex-col items-start justify-between gap-4 sm:flex-row sm:items-center">
             <div className="opacity-70">© {new Date().getFullYear()} {copyrightName}</div>
             <nav className="flex flex-wrap items-center gap-6">
-              {legalLinks.map((l: any) => (
+              {legalLinks.map((l: LegalLink) => (
                 <Link key={l.href + l.label} href={l.href} className="opacity-80 hover:opacity-100">
                   {l.label}
                 </Link>

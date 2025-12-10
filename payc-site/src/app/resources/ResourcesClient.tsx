@@ -2,6 +2,7 @@
 
 import { useMemo, useState } from 'react'
 import Link from 'next/link'
+import type { SanityImageSource } from '@/sanity/image'
 
 type Category = { _id: string; title: string; slug: string; description?: string }
 type Res = {
@@ -13,7 +14,7 @@ type Res = {
   summary?: string
   tags?: string[]
   featured?: boolean
-  coverImage?: any
+  coverImage?: SanityImageSource
   category?: { _id: string; title: string; slug: string }
 }
 

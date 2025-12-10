@@ -1,8 +1,13 @@
 import { sanityClient } from '@/sanity/client'
 import { siteSettingsQuery } from '@/sanity/queries'
-import Link from 'next/link'
 import { FaXTwitter, FaInstagram, FaFacebookF, FaLinkedinIn, FaYoutube, FaPinterestP, FaTiktok } from 'react-icons/fa6'
 import ContactForm from '../connect/ContactForm'
+
+type SocialLink = {
+  network: string
+  url: string
+  label?: string
+}
 
 const iconFor = (network: string) => {
   switch (network.toLowerCase()) {
@@ -72,7 +77,7 @@ export default async function ConnectPage() {
             <div className="mt-8">
               <p className="text-xs font-semibold uppercase tracking-wide opacity-80">Follow PAYC:</p>
               <div className="mt-3 flex flex-wrap gap-4 text-lg">
-                {socials.map((s: any, i: number) => (
+                {socials.map((s: SocialLink, i: number) => (
                   <a
                     key={`${s.network}-${i}`}
                     href={s.url}

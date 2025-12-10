@@ -1,17 +1,17 @@
 'use client'
 
 import { useMemo, useState } from 'react'
-import { PortableText } from '@portabletext/react'
+import { PortableText, type PortableTextBlock } from '@portabletext/react'
 import { FaChevronDown } from 'react-icons/fa'
-import { urlFor } from '@/sanity/image'
+import { urlFor, type SanityImageSource } from '@/sanity/image'
 import { FaChevronLeft, FaChevronRight } from 'react-icons/fa'
 
 
 type Pillar = { title: string; description: string }
 type Metric = { value: string; label: string }
 type AboutData = {
-  heroImage?: { asset?: any; alt?: string } | null
-  mission?: any[]
+  heroImage?: { asset?: SanityImageSource; alt?: string } | null
+  mission?: PortableTextBlock[]
   quote?: { text?: string; attribution?: string }
   pillars?: Pillar[]
   metrics?: Metric[]
@@ -35,7 +35,7 @@ export default function AboutClient({ about }: { about: AboutData }) {
   const heroAlt = about.heroImage?.alt || 'PAYC hero image'
 
   // === Metrics carousel state ===
-  const metrics = about.metrics ?? []
+  const metrics = useMemo(() => about.metrics ?? [], [about.metrics])
   const [metricStart, setMetricStart] = useState(0)
   const canSlide = metrics.length > 3
 
@@ -176,7 +176,7 @@ export default function AboutClient({ about }: { about: AboutData }) {
 
         <div className="prose prose-neutral dark:prose-invert max-w-none text-sm leading-relaxed [&>p]:mb-6">
             {about.mission && about.mission.length > 0 ? (
-                <PortableText value={visibleMission} />
+                <PortableText value={visibleMission || []} />
             ) : (
                 <p className="opacity-70">Mission coming soon.</p>
             )}
