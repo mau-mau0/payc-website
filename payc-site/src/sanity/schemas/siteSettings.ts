@@ -5,6 +5,27 @@ export default defineType({
   title: 'Site Settings',
   type: 'document',
   fields: [
+    
+    // Contact (Connect Page)
+    defineField({
+      name: 'contact',
+      title: 'Contact (Connect Page)',
+      type: 'object',
+      fields: [
+        defineField({ name: 'heading', type: 'string', initialValue: 'Get in touch' }),
+        defineField({
+          name: 'subtext',
+          type: 'text',
+          rows: 3,
+          initialValue: 'Questions, collaborations, or guest ideas? Send a note below.'
+        }),
+        defineField({ name: 'emailTo', title: 'Receive form at (email)', type: 'string' }),
+        defineField({ name: 'phone', type: 'string' }),
+        defineField({ name: 'location', type: 'string' }),
+        defineField({ name: 'enableForm', type: 'boolean', initialValue: true }),
+      ],
+    }),
+
     // Footer – Newsletter
     defineField({
       name: 'newsletter',
