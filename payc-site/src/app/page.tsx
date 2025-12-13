@@ -1,7 +1,8 @@
 import Link from 'next/link'
 import Image from 'next/image'
 import { sanityClient } from '@/sanity/client'
-import { urlFor } from '@/sanity/image'
+import { urlFor, type SanityImageSource } from '@/sanity/image'
+import type { PortableTextBlock } from '@portabletext/react'
 import { 
   allEpisodesWithCategoriesQuery, 
   aboutPageQuery, 
@@ -23,14 +24,14 @@ interface Episode {
   date?: string
   guest?: string
   summary?: string
-  coverImage?: any
+  coverImage?: SanityImageSource
   episodeNumber?: string
   categories?: Category[]
 }
 
 interface AboutData {
-  heroImage?: any
-  mission?: any[]
+  heroImage?: SanityImageSource
+  mission?: PortableTextBlock[]
   quote?: { text?: string; attribution?: string }
   metrics?: Array<{ value: string; label: string }>
 }
@@ -100,10 +101,11 @@ function PlayIcon({ className }: { className?: string }) {
 
 export default async function HomePage() {
   // 1. Parallel Data Fetching
-  const [episodes, about, resources] = await Promise.all([
+  const [episodes, about] = await Promise.all([
     sanityClient.fetch<Episode[]>(allEpisodesWithCategoriesQuery),
     sanityClient.fetch<AboutData>(aboutPageQuery),
-    sanityClient.fetch<Resource[]>(allResourcesQuery)
+    // resources fetched but not currently used on homepage
+    // sanityClient.fetch<Resource[]>(allResourcesQuery)
   ])
 
   // Get latest 3 episodes
@@ -337,7 +339,7 @@ export default async function HomePage() {
       {/* --- NEWSLETTER / CTA --- */}
       <section className="py-20 text-center">
         <div className="max-w-xl mx-auto px-4">
-          <h2 className="text-2xl font-bold uppercase tracking-tight mb-3">Don't Miss an Episode</h2>
+          <h2 className="text-2xl font-bold uppercase tracking-tight mb-3">Don&apos;t Miss an Episode</h2>
           <p className="opacity-70 mb-8">Subscribe to get the latest stories and strategies delivered to your inbox.</p>
           
           <form className="flex flex-col sm:flex-row gap-3">
